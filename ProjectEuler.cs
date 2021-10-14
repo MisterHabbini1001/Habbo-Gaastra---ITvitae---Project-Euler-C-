@@ -326,7 +326,7 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 41 - Pandigital prime
+        // 41 - Pandigital prime 
         public static void Exercise41()
         {
 

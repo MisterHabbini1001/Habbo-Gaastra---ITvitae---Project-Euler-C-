@@ -22,16 +22,51 @@ namespace ProjectEulerCSharp
             Console.WriteLine("multiple_sum = " + multiple_sum);       
         }
 
-        // 2 - Even Fibonacci numbers
+        // 2 - Even Fibonacci numbers - COMPLETE
         public static void Exercise2()
         {
+            int a = 1;
+            int b = 2;
+            int c = a + b;
+            // 2 + 3 = 5
+            // 3 + 5 = 8
+            List<int> even_fibonacci = new List<int>() { b };
+            while(c < 4000000)
+            {
+                int d = b + c; // 2 + 3
+                b = c;         // 3
+                c = d;         // 5
+                if(d % 2 == 0)
+                {
+                    even_fibonacci.Add(d);
+                }
+            }
 
+            int sum = 0;
+            even_fibonacci.ForEach(p => sum += p);
+            Console.WriteLine("sum = " + sum); // 4613732
+            even_fibonacci.ForEach(p => Console.WriteLine(p));
         }
 
-        // 3 - Largest prime factor
+        // 3 - Largest prime factor - COMPLETE
         public static void Exercise3()
         {
+            long n = 600851475143;
+            //long n = 13195;
+            List<long> factors = new List<long>();
+            long d = 2;
+            while(n > 1)
+            {
+                while(n % d == 0)
+                {
+                    factors.Add(d);
+                    n /= d;
+                }
+                d += 1;
+            }
 
+            factors.ForEach(p => Console.WriteLine(p));
+            Console.WriteLine("Largest prime factor = " + factors[factors.Count - 1]); // 6857
         }
 
         // 4 - Largest palindrome product - COMPLETE
@@ -60,10 +95,33 @@ namespace ProjectEulerCSharp
             Console.WriteLine("Largest palindrome number = " + largest_palindrome);
         }
 
-        // 5 - Smallest multiple
+        // 5 - Smallest multiple - COMPLETE
         public static void Exercise5()
         {
+            int spn = 0; // smallest positive number
+            int n = 1;
+            while(n >= 1)
+            {
+                int number = n * 20;
+                int even_divisors = 0;
+                for(int i = 1; i <= 20; i++)
+                {
+                    if(number % i == 0)
+                    {
+                        even_divisors += 1;
+                    }
+                }
 
+                if(even_divisors == 20)
+                {
+                    spn = number;
+                    break;
+                }
+
+                n++;
+            }
+
+            Console.WriteLine("smallest positive number = " + spn); // 232792560
         }
 
         // 6 - Sum square difference - COMPLETE
@@ -88,56 +146,79 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 8 - Largest product in a series
+        // 8 - Largest product in a series - COMPLETE
         public static void Exercise8()
         {
-            string bi_1 = "73167176531330624919225119674426574742355349194934";
-            string bi_2 = "96983520312774506326239578318016984801869478851843";
-            string bi_3 = "85861560789112949495459501737958331952853208805511";
-            string bi_4 = "12540698747158523863050715693290963295227443043557";
-            string bi_5 = "66896648950445244523161731856403098711121722383113";
+            string number_1000_digits = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
+            BigInteger greatest_product = 1;
 
-            string bi_6 = "62229893423380308135336276614282806444486645238749";
-            string bi_7 = "30358907296290491560440772390713810515859307960866";
-            string bi_8 = "70172427121883998797908792274921901699720888093776";
-            string bi_9 = "65727333001053367881220235421809751254540594752243";
-            string bi_10 = "52584907711670556013604839586446706324415722155397";
-
-            string bi_11 = "53697817977846174064955149290862569321978468622482";
-            string bi_12 = "83972241375657056057490261407972968652414535100474";
-            string bi_13 = "82166370484403199890008895243450658541227588666881";
-            string bi_14 = "16427171479924442928230863465674813919123162824586";
-            string bi_15 = "17866458359124566529476545682848912883142607690042";
-
-            string bi_16 = "24219022671055626321111109370544217506941658960408";
-            string bi_17 = "07198403850962455444362981230987879927244284909188";
-            string bi_18 = "84580156166097919133875499200524063689912560717606";
-            string bi_19 = "05886116467109405077541002256983155200055935729725";
-            string bi_20 = "71636269561882670428252483600823257530420752963450";
-
-            string bi_total = bi_1 + bi_2 + bi_3 + bi_4 + bi_5 + bi_6 + bi_7 + bi_8 + bi_9 + bi_10 + bi_11 + bi_12 + bi_13 + bi_14 + bi_15 + bi_16 + bi_17 + bi_18 + bi_19 + bi_20;
-            int greatest_product = 0;
-            for(int i = 12; i <= 999; i++)
+            for(int i = 12; i < number_1000_digits.Length; i++)
             {
-                int gp = 1;
-                string sub = bi_total.Substring(i - 12, 13);
-                for(int j = 0; j < sub.Length; j++)
+                string thirteen_digits = number_1000_digits.Substring(i - 12, 13);
+                BigInteger product = 1;
+                foreach(var td in thirteen_digits)
                 {
-                    gp *= Convert.ToInt32(sub[j].ToString());
-                    if(gp > greatest_product)
+                    int digit = Convert.ToInt32(td.ToString());
+                    product *= digit;
+                }
+
+                if(product > greatest_product)
+                {
+                    greatest_product = product;
+                }
+            }
+
+            /*
+            for (int i = 3; i < number_1000_digits.Length; i++)
+            {
+                string thirteen_digits = number_1000_digits.Substring(i - 3, 4);
+                BigInteger product = 1;
+                foreach (var td in thirteen_digits)
+                {
+                    int digit = Convert.ToInt32(td.ToString());
+                    product *= digit;
+                }
+
+                if (product > greatest_product)
+                {
+                    greatest_product = product;
+                }
+            }
+            */
+
+            Console.WriteLine("Greatest product 13 adjacent digits = " + greatest_product); // 23514624000
+        }
+
+        // 9 - Special Pythagoreon triplet - COMPLETE
+        public static void Exercise9()
+        {
+            int abc_product = 1;
+            for(int a = 1; a <= 1000; a++)
+            {
+                for (int b = 1; b <= 1000; b++)
+                {
+                    for (int c = 1; c <= 1000; c++)
                     {
-                        greatest_product = gp;
+                        if(a < b && b < c && a < c)
+                        {
+                            double a2_plus_b2 = Math.Pow(a, 2) + Math.Pow(b, 2);
+                            double c2 = Math.Pow(c, 2);
+                            double abc = a + b + c;
+                            if(a2_plus_b2 == c2 && a + b + c == 1000)
+                            {
+                                abc_product = a * b * c;
+                                Console.WriteLine("a = " + a); // 200
+                                Console.WriteLine("b = " + b); // 375
+                                Console.WriteLine("c = " + c); // 425
+                                break;
+                            }
+                        }
+
                     }
                 }
             }
 
-            Console.WriteLine("greatest_product = " + greatest_product); // 2091059712
-        }
-
-        // 9 - Special Pythagoreon triplet
-        public static void Exercise9()
-        {
-
+            Console.WriteLine("abc_product = " + abc_product); // 31875000
         }
 
         // 10 - Summation of primes
@@ -149,7 +230,109 @@ namespace ProjectEulerCSharp
         // 11 - Largest product in a grid
         public static void Exercise11()
         {
+            int largest_product = 0;
+            int[,] grid = new int[,] { 
+                { 8, 2, 22, 97, 38, 15, 0, 4, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8 }, 
+                { 49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0 }, 
+                { 81, 49, 31, 73, 55, 79, 14 ,29 ,93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65 }, 
+                { 52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91 }, 
+                { 22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80 }, 
+                { 24, 47, 32, 60, 99, 03, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50 }, 
+                { 32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70 }, 
+                { 67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21 }, 
+                { 24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72 }, 
+                { 21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95 }, 
+                { 78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 09, 53, 56, 92 }, 
+                { 16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57 }, 
+                { 86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58 }, 
+                { 19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40 }, 
+                { 4, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66 }, 
+                { 88, 36, 68, 87, 57 ,62 ,20 ,72 ,3 ,46, 33, 67, 46 ,55, 12, 32, 63, 93, 53, 69 }, 
+                { 4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36 }, 
+                { 20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16 },
+                { 20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54 },
+                { 1, 70 ,54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1 ,89, 19, 67, 48 } };
+            //
+            // DIAGONAL 1 - LEFT to RIGHT  [0,0] * [1,1] * [2,2] * [3,3] --> [0,1] * [1,2] * [2,3] * [3,4]
+            for(int i = 0; i <= 16; i++)
+            {
+                for(int j = 0; j <= 16; j++)
+                {
+                    int product = grid[i, j] * grid[i + 1, j + 1] * grid[i + 2, j + 2] * grid[i + 3, j + 3];
+                    if (product > largest_product)
+                    {
+                        largest_product = product; 
+                    }
+                }
+            }
 
+            // DIAGONAL 2 - RIGHT to LEFT   [0,19] * [1,18] * [2,17] * [3,16] --> [0,18] * [1,17] * [2,16] * [3,15]
+            for(int i = 0; i <= 16; i++)
+            {
+                for(int j = 19; j >= 3; j--)
+                {
+                    int product = grid[i, j] * grid[i + 1, j - 1] * grid[i + 2, j - 2] * grid[i + 3, j - 3];
+                    if (product > largest_product)
+                    {
+                        largest_product = product; // 51267216 --> 70600674
+                    }
+                }
+            }
+            // UP  [19,0] + [18,0] + [17,0] + [16,0]
+            for (int i = 19; i >= 3; i--)
+            {
+                for(int j = 0; j <= 19; j++)
+                {
+                    int product = grid[i, j] * grid[i - 1, j] * grid[i - 2, j] * grid[i - 3, j];
+                    if(product > largest_product)
+                    {
+                        largest_product = product;
+                    }
+                }
+            }
+
+            // DOWN
+            /*
+            for (int i = 0; i <= 16; i++)
+            {
+                for (int j = 0; j <= 19; j++)
+                {
+                    int product = grid[i, j] * grid[i + 1, j] * grid[i + 2, j] * grid[i + 3, j];
+                    if (product > largest_product)
+                    {
+                        largest_product = product;
+                    }
+                }
+            }
+            */
+
+            // LEFT
+            for(int i = 0; i <= 19; i++)
+            {
+                for(int j = 3; j <= 19; j++)
+                {
+                    int product = grid[i, j] * grid[i, j - 1] * grid[i, j - 2] * grid[i, j - 3];
+                    if (product > largest_product)
+                    {
+                        largest_product = product;
+                    }
+                }
+            }
+
+            // RIGHT
+            for (int i = 0; i <= 19; i++)
+            {
+                for (int j = 19; j >= 3; j--)
+                {
+                    int product = grid[i, j] * grid[i, j - 1] * grid[i, j - 2] * grid[i, j - 3];
+                    if (product > largest_product)
+                    {
+                        largest_product = product;
+                    }
+                }
+            }
+
+            Console.WriteLine("largest_product = " + largest_product);
         }
 
         // 12 - Highly divisible triangular number
@@ -170,16 +353,59 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 15 - Lattice paths
+        // 15 - Lattice paths - COMPLETE
         public static void Exercise15()
         {
+            // https://www.mathblog.dk/project-euler-15/
+            // https://nl.wikipedia.org/wiki/Binomiaalco%C3%ABffici%C3%ABnt
+            BigInteger k = 20;           // Length of grid
+            BigInteger n = k * 2;        //
+            BigInteger n_minus_k = n - k; //
+            BigInteger factorial_n = 1;
+            BigInteger factorial_k = 1;
+            BigInteger factorial_n_minus_k = 1;
 
+            for(BigInteger i = n; i >= 1; i--)
+            {
+                factorial_n *= i;
+            }
+
+            for (BigInteger j = k; j >= 1; j--)
+            {
+                factorial_k *= j;
+            }
+
+            for (BigInteger l = n_minus_k; l >= 1; l--)
+            {
+                factorial_n_minus_k *= l;
+            }
+
+            Console.WriteLine("factorial_n = " + factorial_n);
+            Console.WriteLine("factorial_k = " + factorial_k);
+            Console.WriteLine("factorial_n_minus_k = " + factorial_n_minus_k);
+            BigInteger result = factorial_n / (factorial_k * factorial_n_minus_k);
+            Console.WriteLine("result = " + result);
         }
 
-        // 16 - Power digit sum
+        // 16 - Power digit sum - COMPLETE
         public static void Exercise16()
         {
+            BigInteger k = 1;
+            for(int i = 1; i <= 1000; i++)
+            {
+                k *= 2;
+            }
 
+            string kk = k.ToString();
+            int digit_sum = 0;
+            foreach(var kkk in kk)
+            {
+                digit_sum += Convert.ToInt32(kkk.ToString());
+            }
+
+            Console.WriteLine("digit_sum = " + digit_sum); // 1366
+
+            //Console.WriteLine("k = " + k);
         }
 
         // 17 - Number letter counts
@@ -200,10 +426,24 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 20 - Factorial digit sum
+        // 20 - Factorial digit sum - COMPLETE
         public static void Exercise20()
         {
+            BigInteger i = 1;
+            for(int j = 2; j <= 100; j++)
+            {
+                i *= j;
+            }
 
+            int digit_sum = 0;
+            string ii = Convert.ToString(i);
+            foreach(var iii in ii)
+            {
+                digit_sum += Convert.ToInt32(iii.ToString());
+            }
+
+            Console.WriteLine("digit_sum = " + digit_sum); // 648
+            Console.WriteLine("i = " + i);
         }
 
         // 21 - Amicable numbers

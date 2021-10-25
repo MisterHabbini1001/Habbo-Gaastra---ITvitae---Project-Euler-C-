@@ -31,6 +31,25 @@ namespace ProjectEulerCSharp
             //ProjectEuler.Exercise36();
             //ProjectEuler.Exercise48();
             //ProjectEuler.Exercise53();
+
+            // VRIJDAG 22 oktober 2021    - 7 completed   17 + 7 = 24 
+            //ProjectEuler.Exercise7();
+            //ProjectEuler.Exercise10();
+            //ProjectEuler.Exercise13();
+            //ProjectEuler.Exercise14();
+            //ProjectEuler.Exercise22();
+            //ProjectEuler.Exercise25();
+            //ProjectEuler.Exercise34();
+
+            // MAANDAG 25 oktober 2021
+            //ProjectEuler.Exercise42();
+            //ProjectEuler.Exercise12();
+            //ProjectEuler.Exercise39();
+            //ProjectEuler.Exercise43();
+            //ProjectEuler.Exercise44();
+            //ProjectEuler.Exercise45();
+            //ProjectEuler.Exercise52();
+            //ProjectEuler.Exercise56();
         }
     }
 }

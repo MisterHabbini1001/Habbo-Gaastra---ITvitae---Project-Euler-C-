@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
+using System.Linq;
 
 namespace ProjectEulerCSharp
 {
@@ -10,16 +11,16 @@ namespace ProjectEulerCSharp
         // 1 - Multiples of 3 or 5 - COMPLETE
         public static void Exercise1()
         {
-            int multiple_sum = 0;            
-            for(int i = 1; i < 1000; i++)
+            int multiple_sum = 0;
+            for (int i = 1; i < 1000; i++)
             {
-                if(i % 3 == 0 || i % 5 == 0)
+                if (i % 3 == 0 || i % 5 == 0)
                 {
                     multiple_sum += i;
                 }
             }
 
-            Console.WriteLine("multiple_sum = " + multiple_sum);       
+            Console.WriteLine("multiple_sum = " + multiple_sum);
         }
 
         // 2 - Even Fibonacci numbers - COMPLETE
@@ -31,12 +32,12 @@ namespace ProjectEulerCSharp
             // 2 + 3 = 5
             // 3 + 5 = 8
             List<int> even_fibonacci = new List<int>() { b };
-            while(c < 4000000)
+            while (c < 4000000)
             {
                 int d = b + c; // 2 + 3
                 b = c;         // 3
                 c = d;         // 5
-                if(d % 2 == 0)
+                if (d % 2 == 0)
                 {
                     even_fibonacci.Add(d);
                 }
@@ -55,9 +56,9 @@ namespace ProjectEulerCSharp
             //long n = 13195;
             List<long> factors = new List<long>();
             long d = 2;
-            while(n > 1)
+            while (n > 1)
             {
-                while(n % d == 0)
+                while (n % d == 0)
                 {
                     factors.Add(d);
                     n /= d;
@@ -73,19 +74,19 @@ namespace ProjectEulerCSharp
         public static void Exercise4()
         {
             int largest_palindrome = 0;
-            for(int i = 100; i <= 999; i++)
+            for (int i = 100; i <= 999; i++)
             {
-                for(int j = 100; j <= 999; j++)
+                for (int j = 100; j <= 999; j++)
                 {
                     int number = i * j;
                     string n = number.ToString();
                     string rev = "";
-                    for(int k = n.Length - 1; k >= 0; k--)
+                    for (int k = n.Length - 1; k >= 0; k--)
                     {
                         rev += n[k];
                     }
 
-                    if(n == rev && Convert.ToInt32(rev) > largest_palindrome)
+                    if (n == rev && Convert.ToInt32(rev) > largest_palindrome)
                     {
                         largest_palindrome = Convert.ToInt32(rev);
                     }
@@ -100,19 +101,19 @@ namespace ProjectEulerCSharp
         {
             int spn = 0; // smallest positive number
             int n = 1;
-            while(n >= 1)
+            while (n >= 1)
             {
                 int number = n * 20;
                 int even_divisors = 0;
-                for(int i = 1; i <= 20; i++)
+                for (int i = 1; i <= 20; i++)
                 {
-                    if(number % i == 0)
+                    if (number % i == 0)
                     {
                         even_divisors += 1;
                     }
                 }
 
-                if(even_divisors == 20)
+                if (even_divisors == 20)
                 {
                     spn = number;
                     break;
@@ -129,7 +130,7 @@ namespace ProjectEulerCSharp
         {
             double sum_square_natural_numbers = 0;
             double sum_natural_numbers = 0;
-            for(int i = 1; i <= 100; i++)
+            for (int i = 1; i <= 100; i++)
             {
                 sum_square_natural_numbers += Math.Pow(i, 2);
                 sum_natural_numbers += i;
@@ -140,10 +141,38 @@ namespace ProjectEulerCSharp
             Console.WriteLine("difference = " + difference);
         }
 
-        // 7 - 100001st prime
+        // 7 - 100001st prime - COMPLETE
         public static void Exercise7()
         {
+            int prime_id = 0;
+            BigInteger prime_number = 0;
+            for (int n = 2; n <= 1000000; n++)
+            {
+                int divisors = 0;
+                for (int deler = n; deler >= 1; deler--)
+                {
+                    if (n % deler == 0)
+                    {
+                        divisors += 1;
+                        if (divisors == 3)
+                        {
+                            break;
+                        }
+                    }
+                }
 
+                if (divisors == 2)
+                {
+                    prime_id += 1;
+                    prime_number = n;
+                    Console.WriteLine("prime_id = " + prime_id + ", prime_number = " + n);
+                    // Prime number 10001 is 104743
+                    if (prime_id == 10001)
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         // 8 - Largest product in a series - COMPLETE
@@ -152,17 +181,17 @@ namespace ProjectEulerCSharp
             string number_1000_digits = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
             BigInteger greatest_product = 1;
 
-            for(int i = 12; i < number_1000_digits.Length; i++)
+            for (int i = 12; i < number_1000_digits.Length; i++)
             {
                 string thirteen_digits = number_1000_digits.Substring(i - 12, 13);
                 BigInteger product = 1;
-                foreach(var td in thirteen_digits)
+                foreach (var td in thirteen_digits)
                 {
                     int digit = Convert.ToInt32(td.ToString());
                     product *= digit;
                 }
 
-                if(product > greatest_product)
+                if (product > greatest_product)
                 {
                     greatest_product = product;
                 }
@@ -175,18 +204,18 @@ namespace ProjectEulerCSharp
         public static void Exercise9()
         {
             int abc_product = 1;
-            for(int a = 1; a <= 1000; a++)
+            for (int a = 1; a <= 1000; a++)
             {
                 for (int b = 1; b <= 1000; b++)
                 {
                     for (int c = 1; c <= 1000; c++)
                     {
-                        if(a < b && b < c && a < c)
+                        if (a < b && b < c && a < c)
                         {
                             double a2_plus_b2 = Math.Pow(a, 2) + Math.Pow(b, 2);
                             double c2 = Math.Pow(c, 2);
                             double abc = a + b + c;
-                            if(a2_plus_b2 == c2 && a + b + c == 1000)
+                            if (a2_plus_b2 == c2 && a + b + c == 1000)
                             {
                                 abc_product = a * b * c;
                                 Console.WriteLine("a = " + a); // 200
@@ -203,55 +232,89 @@ namespace ProjectEulerCSharp
             Console.WriteLine("abc_product = " + abc_product); // 31875000
         }
 
-        // 10 - Summation of primes
+        // 10 - Summation of primes - COMPLETE
         public static void Exercise10()
         {
+            int prime_id = 0;
+            BigInteger prime_number = 0;
+            BigInteger prime_sum = 0;
+            for (int n = 2; n < 2000000; n++)
+            {
+                if (n % 2 == 0 && n != 2)
+                {
+                    continue;
+                }
 
+                //Console.WriteLine("n = " + n);
+                int divisors = 0;
+                for (int deler = n; deler >= 1; deler--)
+                {
+                    if (n % deler == 0)
+                    {
+                        divisors += 1;
+                        if (divisors == 3)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (divisors == 2)
+                {
+                    prime_id += 1;
+                    prime_number = n;
+                    Console.WriteLine("prime_id = " + prime_id + ", prime_number = " + n);
+                    prime_sum += prime_number;
+                    // Prime sum is
+                }
+            }
+
+            Console.WriteLine("Sum of all primes below 2 million = " + prime_sum); // 142913828922
         }
 
         // 11 - Largest product in a grid
         public static void Exercise11()
         {
             int largest_product = 0;
-            int[,] grid = new int[,] { 
-                { 8, 2, 22, 97, 38, 15, 0, 4, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8 }, 
-                { 49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0 }, 
-                { 81, 49, 31, 73, 55, 79, 14 ,29 ,93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65 }, 
-                { 52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91 }, 
-                { 22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80 }, 
-                { 24, 47, 32, 60, 99, 03, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50 }, 
-                { 32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70 }, 
-                { 67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21 }, 
-                { 24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72 }, 
-                { 21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95 }, 
-                { 78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 09, 53, 56, 92 }, 
-                { 16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57 }, 
-                { 86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58 }, 
-                { 19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40 }, 
-                { 4, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66 }, 
-                { 88, 36, 68, 87, 57 ,62 ,20 ,72 ,3 ,46, 33, 67, 46 ,55, 12, 32, 63, 93, 53, 69 }, 
-                { 4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36 }, 
+            int[,] grid = new int[,] {
+                { 8, 2, 22, 97, 38, 15, 0, 4, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8 },
+                { 49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0 },
+                { 81, 49, 31, 73, 55, 79, 14 ,29 ,93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65 },
+                { 52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91 },
+                { 22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80 },
+                { 24, 47, 32, 60, 99, 03, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50 },
+                { 32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70 },
+                { 67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21 },
+                { 24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72 },
+                { 21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95 },
+                { 78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 09, 53, 56, 92 },
+                { 16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57 },
+                { 86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58 },
+                { 19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40 },
+                { 4, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66 },
+                { 88, 36, 68, 87, 57 ,62 ,20 ,72 ,3 ,46, 33, 67, 46 ,55, 12, 32, 63, 93, 53, 69 },
+                { 4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36 },
                 { 20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16 },
                 { 20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54 },
                 { 1, 70 ,54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1 ,89, 19, 67, 48 } };
             //
             // DIAGONAL 1 - LEFT to RIGHT  [0,0] * [1,1] * [2,2] * [3,3] --> [0,1] * [1,2] * [2,3] * [3,4]
-            for(int i = 0; i <= 16; i++)
+            for (int i = 0; i <= 16; i++)
             {
-                for(int j = 0; j <= 16; j++)
+                for (int j = 0; j <= 16; j++)
                 {
                     int product = grid[i, j] * grid[i + 1, j + 1] * grid[i + 2, j + 2] * grid[i + 3, j + 3];
                     if (product > largest_product)
                     {
-                        largest_product = product; 
+                        largest_product = product;
                     }
                 }
             }
 
             // DIAGONAL 2 - RIGHT to LEFT   [0,19] * [1,18] * [2,17] * [3,16] --> [0,18] * [1,17] * [2,16] * [3,15]
-            for(int i = 0; i <= 16; i++)
+            for (int i = 0; i <= 16; i++)
             {
-                for(int j = 19; j >= 3; j--)
+                for (int j = 19; j >= 3; j--)
                 {
                     int product = grid[i, j] * grid[i + 1, j - 1] * grid[i + 2, j - 2] * grid[i + 3, j - 3];
                     if (product > largest_product)
@@ -263,10 +326,10 @@ namespace ProjectEulerCSharp
             // UP  [19,0] + [18,0] + [17,0] + [16,0]
             for (int i = 19; i >= 3; i--)
             {
-                for(int j = 0; j <= 19; j++)
+                for (int j = 0; j <= 19; j++)
                 {
                     int product = grid[i, j] * grid[i - 1, j] * grid[i - 2, j] * grid[i - 3, j];
-                    if(product > largest_product)
+                    if (product > largest_product)
                     {
                         largest_product = product;
                     }
@@ -289,9 +352,9 @@ namespace ProjectEulerCSharp
             */
 
             // LEFT
-            for(int i = 0; i <= 19; i++)
+            for (int i = 0; i <= 19; i++)
             {
-                for(int j = 3; j <= 19; j++)
+                for (int j = 3; j <= 19; j++)
                 {
                     int product = grid[i, j] * grid[i, j - 1] * grid[i, j - 2] * grid[i, j - 3];
                     if (product > largest_product)
@@ -317,22 +380,94 @@ namespace ProjectEulerCSharp
             Console.WriteLine("largest_product = " + largest_product);
         }
 
-        // 12 - Highly divisible triangular number
+        // 12 - Highly divisible triangular number - COMPLETE
         public static void Exercise12()
         {
+            // https://www.geeksforgeeks.org/find-divisors-natural-number-set-1/
+            List<int> triangle_numbers = new List<int>();
+            int triangle_number = 0;
+            for (int n = 1; n <= 20000; n++)
+            {
+                double number = 0.5 * n * (n + 1);
+                triangle_numbers.Add(Convert.ToInt32(number));
+            }
 
+            //foreach(var tn in triangle_numbers)
+            for (int j = 0; j < triangle_numbers.Count; j++)
+            {
+                //Console.WriteLine("j = " + j);
+                int tn = triangle_numbers[j];
+                Console.WriteLine("tn = " + tn);
+                int divisors = 0;
+                for (int i = 1; i <= Math.Sqrt(tn); i++)
+                {
+                    if (tn % i == 0)
+                    {
+                        divisors += 1;
+                    }
+                }
+
+                Console.WriteLine("divisors = " + divisors);
+                if (divisors * 2 > 500)
+                {
+                    triangle_number = tn;
+                    break;
+                }
+            }
+
+            Console.WriteLine("Value of first triangle number with over 500 divisors = " + triangle_number); // 76576500
         }
 
-        // 13 - Large sum
+        // 13 - Large sum - COMPLETE
         public static void Exercise13()
         {
-
+            BigInteger sum = 0;
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\habbo\One hundred 50-digit numbers.txt");
+            foreach (string line in lines)
+            {
+                BigInteger number = BigInteger.Parse(line);
+                sum += number;
+            }
+            string sum_string = sum.ToString();
+            Console.WriteLine("First 10 digits of sum of 100 50-digit numbers = " + sum_string.Substring(0, 10));
+            // First 10 digits are 5537376230
         }
 
-        // 14 - Longest Collatz sequence
+        // 14 - Longest Collatz sequence - COMPLETE
         public static void Exercise14()
         {
+            BigInteger longest_chain = 0;
+            BigInteger number = 0;
+            for (int i = 1; i <= 999999; i++)
+            {
+                Console.WriteLine("i = " + i);
+                List<BigInteger> sequence = new List<BigInteger>();
+                sequence.Add(i);
+                BigInteger j = i;
+                while (j > 1)
+                {
+                    if (j % 2 == 0)
+                    {
+                        j = j / 2;
+                        sequence.Add(j);
+                    }
 
+                    else
+                    {
+                        j = 3 * j + 1;
+                        sequence.Add(j);
+                    }
+                }
+
+                if (sequence.Count > longest_chain)
+                {
+                    longest_chain = sequence.Count;
+                    number = i;
+                }
+            }
+
+            Console.WriteLine("Starting number = " + number + " produces the longest chain of length " + longest_chain);
+            // Starting number = 837799 produces the longest chain of length 525
         }
 
         // 15 - Lattice paths - COMPLETE
@@ -347,7 +482,7 @@ namespace ProjectEulerCSharp
             BigInteger factorial_k = 1;
             BigInteger factorial_n_minus_k = 1;
 
-            for(BigInteger i = n; i >= 1; i--)
+            for (BigInteger i = n; i >= 1; i--)
             {
                 factorial_n *= i;
             }
@@ -373,14 +508,14 @@ namespace ProjectEulerCSharp
         public static void Exercise16()
         {
             BigInteger k = 1;
-            for(int i = 1; i <= 1000; i++)
+            for (int i = 1; i <= 1000; i++)
             {
                 k *= 2;
             }
 
             string kk = k.ToString();
             int digit_sum = 0;
-            foreach(var kkk in kk)
+            foreach (var kkk in kk)
             {
                 digit_sum += Convert.ToInt32(kkk.ToString());
             }
@@ -412,14 +547,14 @@ namespace ProjectEulerCSharp
         public static void Exercise20()
         {
             BigInteger i = 1;
-            for(int j = 2; j <= 100; j++)
+            for (int j = 2; j <= 100; j++)
             {
                 i *= j;
             }
 
             int digit_sum = 0;
             string ii = Convert.ToString(i);
-            foreach(var iii in ii)
+            foreach (var iii in ii)
             {
                 digit_sum += Convert.ToInt32(iii.ToString());
             }
@@ -434,10 +569,58 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 22 - Names scores
+        // 22 - Names scores - COMPLETE
         public static void Exercise22()
         {
+            string text = System.IO.File.ReadAllText(@"C:\Users\habbo\names.txt");
+            List<string> names = text.Split(",").ToList<string>();
+            names.Sort();
 
+            BigInteger name_scores = 0;
+            Dictionary<char, int> alphabet_values = new Dictionary<char, int>();
+            alphabet_values.Add('A', 1);
+            alphabet_values.Add('B', 2);
+            alphabet_values.Add('C', 3);
+            alphabet_values.Add('D', 4);
+            alphabet_values.Add('E', 5);
+            alphabet_values.Add('F', 6);
+            alphabet_values.Add('G', 7);
+            alphabet_values.Add('H', 8);
+            alphabet_values.Add('I', 9);
+            alphabet_values.Add('J', 10);
+            alphabet_values.Add('K', 11);
+            alphabet_values.Add('L', 12);
+            alphabet_values.Add('M', 13);
+            alphabet_values.Add('N', 14);
+            alphabet_values.Add('O', 15);
+            alphabet_values.Add('P', 16);
+            alphabet_values.Add('Q', 17);
+            alphabet_values.Add('R', 18);
+            alphabet_values.Add('S', 19);
+            alphabet_values.Add('T', 20);
+            alphabet_values.Add('U', 21);
+            alphabet_values.Add('V', 22);
+            alphabet_values.Add('W', 23);
+            alphabet_values.Add('X', 24);
+            alphabet_values.Add('Y', 25);
+            alphabet_values.Add('Z', 26);
+            alphabet_values.Add('"', 0);
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                string name = names[i];
+                BigInteger score = 0;
+                BigInteger index = i + 1;
+                foreach (var letter in name)
+                {
+                    score += alphabet_values[letter];
+                }
+
+                name_scores += score * index;
+                //Console.WriteLine(names[i]);
+            }
+
+            Console.WriteLine("Total of all the name scores in the file = " + name_scores); // 871198282
         }
 
         // 23 - Non-abundant sums
@@ -452,16 +635,32 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 25 - 1000-digit Fibonacci number
+        // 25 - 1000-digit Fibonacci number - COMPLETE
         public static void Exercise25()
         {
-
+            BigInteger term_1 = 1;
+            BigInteger term_2 = 1;
+            BigInteger index = 2;
+            int i = 10000;
+            while (i > 9999)
+            {
+                index += 1;
+                BigInteger next_term = term_1 + term_2; // 2
+                term_1 = term_2;
+                term_2 = next_term;
+                string nt = next_term.ToString();
+                //Console.WriteLine("index = " + index + ", term = " + next_term);
+                if (nt.Length == 1000)
+                {
+                    Console.WriteLine("INDEX = " + index); // 4782
+                    break;
+                }
+            }
         }
 
         // 26 - Reciprocal cycles
         public static void Exercise26()
         {
-
         }
 
         // 27 - Quadratic primes
@@ -480,7 +679,7 @@ namespace ProjectEulerCSharp
         public static void Exercise29()
         {
             List<BigInteger> bi = new List<BigInteger>();
-            for(int a = 2; a <= 100; a++)
+            for (int a = 2; a <= 100; a++)
             {
                 for (int b = 2; b <= 100; b++)
                 {
@@ -510,16 +709,16 @@ namespace ProjectEulerCSharp
         public static void Exercise30()
         {
             double sum = 0;
-            for(int i = 2; i <= 10000000; i++)
+            for (int i = 2; i <= 10000000; i++)
             {
                 int digit_sum = 0;
                 string ii = i.ToString();
-                foreach(var iii in ii)
+                foreach (var iii in ii)
                 {
                     digit_sum += Convert.ToInt32(Math.Pow(Convert.ToInt32(iii.ToString()), 5));
                 }
 
-                if(digit_sum == i)
+                if (digit_sum == i)
                 {
                     Console.WriteLine("i = " + i);
                     sum += digit_sum;
@@ -531,16 +730,16 @@ namespace ProjectEulerCSharp
         // 31 - Coin sums - COMPLETE
         public static void Exercise31()
         {
-            int two_pound    = 200 / 200; // 10
-            int one_pound    = 200 / 100; // 20
-            int fifty_pence  = 200 / 50;  // 4
+            int two_pound = 200 / 200; // 10
+            int one_pound = 200 / 100; // 20
+            int fifty_pence = 200 / 50;  // 4
             int twenty_pence = 200 / 20;  // 10
-            int ten_pence    = 200 / 10;  // 20
-            int five_pence   = 200 / 5;   // 40
-            int two_pence    = 200 / 2;   // 100
-            int one_pence    = 200 / 1;   // 200
+            int ten_pence = 200 / 10;  // 20
+            int five_pence = 200 / 5;   // 40
+            int two_pence = 200 / 2;   // 100
+            int one_pence = 200 / 1;   // 200
             int different_ways = 0;
-            for(int a = two_pound; a >= 0; a--)
+            for (int a = two_pound; a >= 0; a--)
             {
                 for (int b = one_pound; b >= 0; b--)
                 {
@@ -556,7 +755,7 @@ namespace ProjectEulerCSharp
                                     {
                                         for (int h = one_pence; h >= 0; h--)
                                         {
-                                            if(a * 200 + b * 100 + c * 50 + d * 20 + e * 10 + f * 5 + g * 2 + h * 1 == 200)
+                                            if (a * 200 + b * 100 + c * 50 + d * 20 + e * 10 + f * 5 + g * 2 + h * 1 == 200)
                                             {
                                                 different_ways += 1; // 73682
                                             }
@@ -587,7 +786,38 @@ namespace ProjectEulerCSharp
         // 34 - Digit factorials
         public static void Exercise34()
         {
+            BigInteger factorial_sum = 0;
+            for (int i = 3; i <= 1000000; i++)
+            {
+                BigInteger fs = 0;
+                string ii = i.ToString();
+                foreach (var iii in ii)
+                {
+                    BigInteger ffs = 1;
+                    int digit = Convert.ToInt32(iii.ToString());
+                    if (digit == 0)
+                    {
+                        ffs *= 1;
+                    }
 
+                    else
+                    {
+                        for (int j = digit; j >= 1; j--)
+                        {
+                            ffs *= j;
+                        }
+                    }
+
+                    fs += ffs;
+                }
+
+                if (fs == i)
+                {
+                    Console.WriteLine("fs = " + fs);
+                    factorial_sum += fs;
+                }
+            }
+            Console.WriteLine("factorial_sum = " + factorial_sum); // 40730
         }
 
         // 35 - Circular primes
@@ -600,11 +830,11 @@ namespace ProjectEulerCSharp
         public static void Exercise36()
         {
             BigInteger sum = 0;
-            for(int i = 1; i <= 999999; i++)
+            for (int i = 1; i <= 999999; i++)
             {
                 string ii = i.ToString();
                 string ii_rev = "";
-                for(int j = ii.Length - 1; j >= 0; j--)
+                for (int j = ii.Length - 1; j >= 0; j--)
                 {
                     ii_rev += ii[j];
                 }
@@ -640,10 +870,37 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 39 - Integer right triangles
+        // 39 - Integer right triangles - COMPLETE
         public static void Exercise39()
         {
+            int maximum_p = 0;
+            int maximum_solutions = 0;
+            for (int p = 0; p <= 1000; p++)
+            {
+                Console.WriteLine("p = " + p);
+                int solutions = 0;
+                for(int a = 1; a <= 500; a++)
+                {
+                    for (int b = 1; b <= 500; b++)
+                    {
+                        for (int c = 1; c <= 500; c++)
+                        {
+                            if(a + b + c == p && a*a + b*b == c*c)
+                            {
+                                solutions += 1;
+                            }
+                        }
+                    }
+                }
 
+                if(solutions > maximum_solutions)
+                {
+                    maximum_solutions = solutions;
+                    maximum_p = p;
+                }
+            }
+
+            Console.WriteLine("For the value of p = " + maximum_p + " the number of solutions is maximised = " + maximum_solutions); // 840
         }
 
         // 40 - Champernowne's constant
@@ -658,28 +915,193 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 42 - Coded triangle numbers
+        // 42 - Coded triangle numbers - COMPLETE
         public static void Exercise42()
         {
+            string text = System.IO.File.ReadAllText(@"C:\Users\habbo\words.txt");
+            text = text.Replace("\"", "");
+            List<string> words = text.Split(",").ToList<string>();
+            int amount_of_triangle_words = 0;
 
+            Dictionary<char, int> alphabet_values = new Dictionary<char, int>();
+            string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for(int i = 0; i < alphabet.Length; i++)
+            {
+                alphabet_values.Add(alphabet[i], i + 1);
+            }
+
+            List<int> triangle_numbers = new List<int>();
+            for(int n = 1; n <= 1000; n++)
+            {
+                double nn = 0.5 * n * (n + 1);
+                triangle_numbers.Add(Convert.ToInt32(nn));
+            }
+
+            foreach(string word in words)
+            {
+                int word_value = 0;
+                foreach(var letter in word)
+                {
+                    word_value += alphabet_values[letter];
+                }
+
+                if(triangle_numbers.Contains(word_value))
+                {
+                    amount_of_triangle_words += 1;
+                }
+            }
+
+            Console.WriteLine("Amount of triangle words in words.txt = " + amount_of_triangle_words); // 162
         }
 
-        // 43 - Sub-string divisibility
+        // 43 - Sub-string divisibility - COMPLETE
         public static void Exercise43()
         {
+            //https://codereview.stackexchange.com/questions/27025/generating-pandigital-numbers
+            List<long> pandigital_numbers = GeneratePandigital().ToList<long>();
+            BigInteger sum = 0;
+            //= BigInteger.Parse
+            //Console.WriteLine("Amount of pandigital numbers = " + pandigital_numbers.Count);
+            foreach(var pn in pandigital_numbers)
+            {
+                Console.WriteLine("pn = " + pn);
+                int division_count = 0; // 0123456789
+                string pnn = pn.ToString();
 
+                if (pnn.Length == 9)
+                {
+                    int number_1 = Convert.ToInt32(pnn.Substring(0, 3));
+                    int number_2 = Convert.ToInt32(pnn.Substring(1, 3));
+                    int number_3 = Convert.ToInt32(pnn.Substring(2, 3));
+                    int number_4 = Convert.ToInt32(pnn.Substring(3, 3));
+                    int number_5 = Convert.ToInt32(pnn.Substring(4, 3));
+                    int number_6 = Convert.ToInt32(pnn.Substring(5, 3));
+                    int number_7 = Convert.ToInt32(pnn.Substring(6, 3));
+
+                    if (number_1 % 2 == 0) { division_count += 1; }
+                    if (number_2 % 3 == 0) { division_count += 1; }
+                    if (number_3 % 5 == 0) { division_count += 1; }
+                    if (number_4 % 7 == 0) { division_count += 1; }
+                    if (number_5 % 11 == 0) { division_count += 1; }
+                    if (number_6 % 13 == 0) { division_count += 1; }
+                    if (number_7 % 17 == 0) { division_count += 1; }
+                }
+
+                else if (pnn.Length == 10)
+                {
+                    int number_1 = Convert.ToInt32(pnn.Substring(1, 3));
+                    int number_2 = Convert.ToInt32(pnn.Substring(2, 3));
+                    int number_3 = Convert.ToInt32(pnn.Substring(3, 3));
+                    int number_4 = Convert.ToInt32(pnn.Substring(4, 3));
+                    int number_5 = Convert.ToInt32(pnn.Substring(5, 3));
+                    int number_6 = Convert.ToInt32(pnn.Substring(6, 3));
+                    int number_7 = Convert.ToInt32(pnn.Substring(7, 3));
+
+                    if (number_1 % 2 == 0) { division_count += 1; }
+                    if (number_2 % 3 == 0) { division_count += 1; }
+                    if (number_3 % 5 == 0) { division_count += 1; }
+                    if (number_4 % 7 == 0) { division_count += 1; }
+                    if (number_5 % 11 == 0) { division_count += 1; }
+                    if (number_6 % 13 == 0) { division_count += 1; }
+                    if (number_7 % 17 == 0) { division_count += 1; }
+                }
+
+                if (division_count == 7)
+                {
+                    sum += BigInteger.Parse(pnn);
+                }
+            }
+
+            Console.WriteLine("Sum of all 0 to 9 pandigital numbers with this property = " + sum); // 16695334890
         }
 
-        // 44 - Pentagon numbers
+        static IEnumerable<long> GeneratePandigital()
+        {
+            var other = Enumerable.Range(0, 10);
+
+            foreach (var a in other)
+                foreach (var b in other.Except(new int[] { a }))
+                    foreach (var c in other.Except(new int[] { a, b }))
+                        foreach (var d in other.Except(new int[] { a, b, c }))
+                            foreach (var e in other.Except(new int[] { a, b, c, d }))
+                                foreach (var f in other.Except(new int[] { a, b, c, d, e }))
+                                    foreach (var g in other.Except(new int[] { a, b, c, d, e, f }))
+                                        foreach (var h in other.Except(new int[] { a, b, c, d, e, f, g }))
+                                            foreach (var i in other.Except(new int[] { a, b, c, d, e, f, g, h }))
+                                                foreach (var j in other.Except(new int[] { a, b, c, d, e, f, g, h, i }))
+                                                {
+                                                    yield return a * 1000000000L +
+                                                    b * 100000000L +
+                                                    c * 10000000L +
+                                                    d * 1000000 +
+                                                    e * 100000 +
+                                                    f * 10000 +
+                                                    g * 1000 +
+                                                    h * 100 +
+                                                    i * 10 +
+                                                    j;
+                                                }
+        }
+
+        // 44 - Pentagon numbers - COMPLETE
         public static void Exercise44()
         {
+            List<int> pentagonal_numbers = new List<int>();
+            for(int n = 1; n <= 10000; n++)
+            {
+                int pn = (n * (3*n - 1)) / 2;
+                pentagonal_numbers.Add(pn);
+            }
 
+            Tuple<int, int> number_pair = new Tuple<int, int>(0,0);
+            int difference = int.MaxValue;
+
+            for(int i = 0; i < pentagonal_numbers.Count; i++)
+            {
+                Console.WriteLine("i = " + i);
+                for(int j = 0; j < pentagonal_numbers.Count; j++)
+                {
+                    if(i != j)
+                    {
+                        int dif = pentagonal_numbers[j] - pentagonal_numbers[i];
+                        int sum = pentagonal_numbers[j] + pentagonal_numbers[i];
+                        if (dif < difference && pentagonal_numbers.Contains(dif) && pentagonal_numbers.Contains(sum))
+                        {
+                            difference = dif;
+                            number_pair = new Tuple<int, int>(pentagonal_numbers[i], pentagonal_numbers[j]);
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Value for D = " + difference + " is minimised for Pj = " + number_pair.Item1 + " and Pk = " + number_pair.Item2); // 5482660 is dif for Pj = 1560090 and Pk = 7042750
+            //pentagonal_numbers.ForEach(p => Console.WriteLine(p));
         }
 
-        // 45 - Triangular, pentagonal, and hexagonal
+        // 45 - Triangular, pentagonal, and hexagonal - COMPLETE
         public static void Exercise45()
         {
+            List<BigInteger> triangle_numbers = new List<BigInteger>();
+            List<BigInteger> pentagonal_numbers = new List<BigInteger>();
+            List<BigInteger> hexagonal_numbers = new List<BigInteger>();
+            for(BigInteger n = 1; n <= 100000; n++)
+            {
+                BigInteger tn = (n * (n + 1)) / 2;
+                BigInteger pn = (n * (3 * n - 1)) / 2;
+                BigInteger hn = n * (2 * n - 1);
+                triangle_numbers.Add(tn);
+                pentagonal_numbers.Add(pn);
+                hexagonal_numbers.Add(hn);
+            }
 
+            for(int i = 0; i < triangle_numbers.Count; i++)
+            {
+                BigInteger tn = triangle_numbers[i];
+                if(pentagonal_numbers.Contains(tn) && hexagonal_numbers.Contains(tn))
+                {
+                    Console.WriteLine("i = " + (i + 1) + ", number = " + tn); // Number 55385 --> 1533776805
+                }
+            }
         }
 
         // 46 - Goldbach's other conjecture
@@ -734,10 +1156,42 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 52 - Permuted multiples
+        // 52 - Permuted multiples - COMPLETE
         public static void Exercise52()
         {
+            int x = 0;
+            for(int i = 1; i <= 1000000; i++)
+            {
+                string x1 = i.ToString();
+                x1 = String.Concat(x1.OrderBy(c => c));
 
+                string x2 = (i * 2).ToString();
+                x2 = String.Concat(x2.OrderBy(c => c));
+
+                string x3 = (i * 3).ToString();
+                x3 = String.Concat(x3.OrderBy(c => c));
+
+                string x4 = (i * 4).ToString();
+                x4 = String.Concat(x4.OrderBy(c => c));
+
+                string x5 = (i * 5).ToString();
+                x5 = String.Concat(x5.OrderBy(c => c));
+
+                string x6 = (i * 6).ToString();
+                x6 = String.Concat(x6.OrderBy(c => c));
+
+                bool condition_1 = x1 == x2 && x1 == x3 && x1 == x4 && x1 == x5 && x1 == x6;
+                bool condition_2 = x2 == x3 && x2 == x4 && x2 == x5 && x2 == x6;
+                bool condition_3 = x3 == x4 && x3 == x5 && x3 == x6;
+                bool condition_4 = x4 == x5 && x4 == x6;
+                bool condition_5 = x5 == x6;
+                if(condition_1 && condition_2 && condition_3 && condition_4 && condition_5)
+                {
+                    Console.WriteLine("i = " + i);
+                    x = i;
+                }
+            }
+            Console.WriteLine("Smallest positive integer = " + x); // 142857
         }
 
         // 53 - Combinatoric selections
@@ -794,10 +1248,36 @@ namespace ProjectEulerCSharp
 
         }
 
-        // 56 - Powerful digit sum
+        // 56 - Powerful digit sum - COMPLETE
         public static void Exercise56()
         {
+            BigInteger maximum_digital_sum = 0;
+            for (BigInteger a = 1; a < 100; a++)
+            {
+                for (BigInteger b = 1; b < 100; b++)
+                {
+                    BigInteger digit_sum = 0;
+                    BigInteger a_power_b = a;
+                    for (BigInteger c = 1; c < b; c++)
+                    {
+                        a_power_b *= a;
+                    }
 
+                    string ab = a_power_b.ToString();
+                    foreach(var aab in ab)
+                    {
+                        int digit = Convert.ToInt32(aab.ToString());
+                        digit_sum += digit;
+                    }
+
+                    if(digit_sum > maximum_digital_sum)
+                    {
+                        maximum_digital_sum = digit_sum;
+                    }
+                }
+            }
+
+            Console.WriteLine("maximum_digital_sum = " + maximum_digital_sum);
         }
 
         // 57 - Square root convergents

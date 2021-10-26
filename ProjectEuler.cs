@@ -525,10 +525,93 @@ namespace ProjectEulerCSharp
             //Console.WriteLine("k = " + k);
         }
 
-        // 17 - Number letter counts
+        // 17 - Number letter counts - COMPLETE
         public static void Exercise17()
         {
+            int letter_count = 0;
+            Dictionary<int, string> first_20 = new Dictionary<int, string>();
+            first_20.Add(0, "");
+            first_20.Add(1, "one");
+            first_20.Add(2, "two");
+            first_20.Add(3, "three");
+            first_20.Add(4, "four");
+            first_20.Add(5, "five");
 
+            first_20.Add(6, "six");
+            first_20.Add(7, "seven");
+            first_20.Add(8, "eight");
+            first_20.Add(9, "nine");
+            first_20.Add(10, "ten");
+
+            first_20.Add(11, "eleven");
+            first_20.Add(12, "twelve");
+            first_20.Add(13, "thirteen");
+            first_20.Add(14, "fourteen");
+            first_20.Add(15, "fifteen");
+
+            first_20.Add(16, "sixteen");
+            first_20.Add(17, "seventeen");
+            first_20.Add(18, "eighteen");
+            first_20.Add(19, "nineteen");
+            first_20.Add(20, "twenty");
+
+            first_20.Add(30, "thirty");
+            first_20.Add(40, "forty");
+            first_20.Add(50, "fifty");
+            first_20.Add(60, "sixty");
+            first_20.Add(70, "seventy");
+            first_20.Add(80, "eighty");
+            first_20.Add(90, "ninety");
+
+
+            Console.WriteLine("216 / 1000 = " + 216 / 1000);
+            Console.WriteLine("216 / 100 = " + 216 / 100);
+            Console.WriteLine("96 % 10 = " + 96 % 10); // 6
+            for (int n = 1; n <= 1000; n++)
+            {
+                int nn = n;
+                string number = "";
+                int n_1000 = nn / 1000;
+                // onethousandand 012 345678910 111213
+                if(n_1000 > 0)
+                {
+                    number += first_20[n_1000] + "thousand" + "and";
+                    nn -= n_1000 * 1000;
+                }
+
+                int n_100 = nn / 100;
+                if(n_100 > 0)
+                {
+                    number += first_20[n_100] + "hundred" + "and";
+                    nn -= n_100 * 100;
+                }
+
+                int n_10 = nn / 10; // 11
+                if(n_10 == 1)
+                {
+                    number += first_20[nn];
+                    nn = 0;
+                }
+
+                else if(n_10 > 1)
+                {
+                    number += first_20[n_10 * 10];
+                    nn -= n_10 * 10;
+                }
+
+                number += first_20[nn];
+
+                if (number.Substring(number.Length - 3, 3) == "and")
+                {
+                    number = number.Substring(0, number.Length - 3);
+                }
+
+                Console.WriteLine("n = " + n);
+                Console.WriteLine(number);
+                letter_count += number.Length;
+            }
+
+            Console.WriteLine("Amount of letters in 1 to 1000 written in words = " + letter_count); // 21124
         }
 
         // 18 - Maximum path sum 1
@@ -563,10 +646,52 @@ namespace ProjectEulerCSharp
             Console.WriteLine("i = " + i);
         }
 
-        // 21 - Amicable numbers
+        // 21 - Amicable numbers - COMPLETE
         public static void Exercise21()
         {
+            //int amicable_number_sum = 220 + 284 + 1184 + 1210 + 2620 + 2924 + 5020 + 5564 + 6232 + 6368;
+            List<int> amicable_numbers = new List<int>();
+            /*
+            a = 220
+            b = 284
+            d(a) = 1 + 2 + 4 + 5 + 10 + 11 + 20 + 22 + 44 + 55 + 110
+            d(b) = 1 + 2 + 4 + 71 + 142
+            */
+            for(int a = 1; a < 10000; a++)
+            {
+                Console.WriteLine("CURRENT a = " + a);
+                for (int b = 1; b < 10000; b++)
+                {
+                    if (a != b)
+                    {
+                        int d_a = 0;
+                        for (int divisor = 1; divisor < a; divisor++)
+                        {
+                            if (a % divisor == 0)
+                            {
+                                d_a += divisor;
+                            }
+                        }
 
+                        int d_b = 0;
+                        for (int divisor = 1; divisor < b; divisor++)
+                        {
+                            if (b % divisor == 0)
+                            {
+                                d_b += divisor;
+                            }
+                        }
+
+                        if (d_a == b && d_b == a)
+                        {
+                            Console.WriteLine("a = " + a);
+                            amicable_numbers.Add(a);
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Sum of amicable numbers under 10000 = " + amicable_numbers.Sum()); // 31626
         }
 
         // 22 - Names scores - COMPLETE

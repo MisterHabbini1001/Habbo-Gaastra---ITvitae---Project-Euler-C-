@@ -54,7 +54,9 @@ namespace ProjectEulerCSharp
             // DINSDAG 26 oktober 2021
             //ProjectEuler.Exercise17();
             //ProjectEuler.Exercise21();
-            ProjectEuler.Exercise179();
+
+            // WOENSDAG 27 oktober 2021
+            //ProjectEuler.Exercise97();
         }
     }
 }

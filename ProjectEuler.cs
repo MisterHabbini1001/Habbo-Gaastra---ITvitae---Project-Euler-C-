@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
 using System.Linq;
+using java.math;
 
 namespace ProjectEulerCSharp
 {
@@ -145,7 +146,7 @@ namespace ProjectEulerCSharp
         public static void Exercise7()
         {
             int prime_id = 0;
-            BigInteger prime_number = 0;
+            System.Numerics.BigInteger prime_number = 0;
             for (int n = 2; n <= 1000000; n++)
             {
                 int divisors = 0;
@@ -179,12 +180,12 @@ namespace ProjectEulerCSharp
         public static void Exercise8()
         {
             string number_1000_digits = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
-            BigInteger greatest_product = 1;
+            System.Numerics.BigInteger greatest_product = 1;
 
             for (int i = 12; i < number_1000_digits.Length; i++)
             {
                 string thirteen_digits = number_1000_digits.Substring(i - 12, 13);
-                BigInteger product = 1;
+                System.Numerics.BigInteger product = 1;
                 foreach (var td in thirteen_digits)
                 {
                     int digit = Convert.ToInt32(td.ToString());
@@ -236,8 +237,8 @@ namespace ProjectEulerCSharp
         public static void Exercise10()
         {
             int prime_id = 0;
-            BigInteger prime_number = 0;
-            BigInteger prime_sum = 0;
+            System.Numerics.BigInteger prime_number = 0;
+            System.Numerics.BigInteger prime_sum = 0;
             for (int n = 2; n < 2000000; n++)
             {
                 if (n % 2 == 0 && n != 2)
@@ -421,11 +422,11 @@ namespace ProjectEulerCSharp
         // 13 - Large sum - COMPLETE
         public static void Exercise13()
         {
-            BigInteger sum = 0;
+            System.Numerics.BigInteger sum = 0;
             string[] lines = System.IO.File.ReadAllLines(@"C:\Users\habbo\One hundred 50-digit numbers.txt");
             foreach (string line in lines)
             {
-                BigInteger number = BigInteger.Parse(line);
+                System.Numerics.BigInteger number = System.Numerics.BigInteger.Parse(line);
                 sum += number;
             }
             string sum_string = sum.ToString();
@@ -436,14 +437,14 @@ namespace ProjectEulerCSharp
         // 14 - Longest Collatz sequence - COMPLETE
         public static void Exercise14()
         {
-            BigInteger longest_chain = 0;
-            BigInteger number = 0;
+            System.Numerics.BigInteger longest_chain = 0;
+            System.Numerics.BigInteger number = 0;
             for (int i = 1; i <= 999999; i++)
             {
                 Console.WriteLine("i = " + i);
-                List<BigInteger> sequence = new List<BigInteger>();
+                List<System.Numerics.BigInteger> sequence = new List<System.Numerics.BigInteger>();
                 sequence.Add(i);
-                BigInteger j = i;
+                System.Numerics.BigInteger j = i;
                 while (j > 1)
                 {
                     if (j % 2 == 0)
@@ -475,24 +476,24 @@ namespace ProjectEulerCSharp
         {
             // https://www.mathblog.dk/project-euler-15/
             // https://nl.wikipedia.org/wiki/Binomiaalco%C3%ABffici%C3%ABnt
-            BigInteger k = 20;           // Length of grid
-            BigInteger n = k * 2;        //
-            BigInteger n_minus_k = n - k; //
-            BigInteger factorial_n = 1;
-            BigInteger factorial_k = 1;
-            BigInteger factorial_n_minus_k = 1;
+            System.Numerics.BigInteger k = 20;           // Length of grid
+            System.Numerics.BigInteger n = k * 2;        //
+            System.Numerics.BigInteger n_minus_k = n - k; //
+            System.Numerics.BigInteger factorial_n = 1;
+            System.Numerics.BigInteger factorial_k = 1;
+            System.Numerics.BigInteger factorial_n_minus_k = 1;
 
-            for (BigInteger i = n; i >= 1; i--)
+            for (System.Numerics.BigInteger i = n; i >= 1; i--)
             {
                 factorial_n *= i;
             }
 
-            for (BigInteger j = k; j >= 1; j--)
+            for (System.Numerics.BigInteger j = k; j >= 1; j--)
             {
                 factorial_k *= j;
             }
 
-            for (BigInteger l = n_minus_k; l >= 1; l--)
+            for (System.Numerics.BigInteger l = n_minus_k; l >= 1; l--)
             {
                 factorial_n_minus_k *= l;
             }
@@ -500,14 +501,14 @@ namespace ProjectEulerCSharp
             Console.WriteLine("factorial_n = " + factorial_n);
             Console.WriteLine("factorial_k = " + factorial_k);
             Console.WriteLine("factorial_n_minus_k = " + factorial_n_minus_k);
-            BigInteger result = factorial_n / (factorial_k * factorial_n_minus_k);
+            System.Numerics.BigInteger result = factorial_n / (factorial_k * factorial_n_minus_k);
             Console.WriteLine("result = " + result);
         }
 
         // 16 - Power digit sum - COMPLETE
         public static void Exercise16()
         {
-            BigInteger k = 1;
+            System.Numerics.BigInteger k = 1;
             for (int i = 1; i <= 1000; i++)
             {
                 k *= 2;
@@ -629,7 +630,7 @@ namespace ProjectEulerCSharp
         // 20 - Factorial digit sum - COMPLETE
         public static void Exercise20()
         {
-            BigInteger i = 1;
+            System.Numerics.BigInteger i = 1;
             for (int j = 2; j <= 100; j++)
             {
                 i *= j;
@@ -701,7 +702,7 @@ namespace ProjectEulerCSharp
             List<string> names = text.Split(",").ToList<string>();
             names.Sort();
 
-            BigInteger name_scores = 0;
+            System.Numerics.BigInteger name_scores = 0;
             Dictionary<char, int> alphabet_values = new Dictionary<char, int>();
             alphabet_values.Add('A', 1);
             alphabet_values.Add('B', 2);
@@ -734,8 +735,8 @@ namespace ProjectEulerCSharp
             for (int i = 0; i < names.Count; i++)
             {
                 string name = names[i];
-                BigInteger score = 0;
-                BigInteger index = i + 1;
+                System.Numerics.BigInteger score = 0;
+                System.Numerics.BigInteger index = i + 1;
                 foreach (var letter in name)
                 {
                     score += alphabet_values[letter];
@@ -763,14 +764,14 @@ namespace ProjectEulerCSharp
         // 25 - 1000-digit Fibonacci number - COMPLETE
         public static void Exercise25()
         {
-            BigInteger term_1 = 1;
-            BigInteger term_2 = 1;
-            BigInteger index = 2;
+            System.Numerics.BigInteger term_1 = 1;
+            System.Numerics.BigInteger term_2 = 1;
+            System.Numerics.BigInteger index = 2;
             int i = 10000;
             while (i > 9999)
             {
                 index += 1;
-                BigInteger next_term = term_1 + term_2; // 2
+                System.Numerics.BigInteger next_term = term_1 + term_2; // 2
                 term_1 = term_2;
                 term_2 = next_term;
                 string nt = next_term.ToString();
@@ -803,7 +804,7 @@ namespace ProjectEulerCSharp
         // 29 -	Distinct powers - COMPLETE
         public static void Exercise29()
         {
-            List<BigInteger> bi = new List<BigInteger>();
+            List<System.Numerics.BigInteger> bi = new List<System.Numerics.BigInteger>();
             for (int a = 2; a <= 100; a++)
             {
                 for (int b = 2; b <= 100; b++)
@@ -812,7 +813,7 @@ namespace ProjectEulerCSharp
                     Console.WriteLine("c = " + c);
                     //string c = (a ^ b).ToString();
                     //BigInteger d = BigInteger.Parse(c);
-                    BigInteger result = 0;
+                    System.Numerics.BigInteger result = 0;
                     for (int i = 0; i < c.Length; i++)
                     {
                         result = result * 10 + (c[i] - '0');
@@ -911,14 +912,14 @@ namespace ProjectEulerCSharp
         // 34 - Digit factorials
         public static void Exercise34()
         {
-            BigInteger factorial_sum = 0;
+            System.Numerics.BigInteger factorial_sum = 0;
             for (int i = 3; i <= 1000000; i++)
             {
-                BigInteger fs = 0;
+                System.Numerics.BigInteger fs = 0;
                 string ii = i.ToString();
                 foreach (var iii in ii)
                 {
-                    BigInteger ffs = 1;
+                    System.Numerics.BigInteger ffs = 1;
                     int digit = Convert.ToInt32(iii.ToString());
                     if (digit == 0)
                     {
@@ -954,7 +955,7 @@ namespace ProjectEulerCSharp
         // 36 - Double-base palindromes - COMPLETE
         public static void Exercise36()
         {
-            BigInteger sum = 0;
+            System.Numerics.BigInteger sum = 0;
             for (int i = 1; i <= 999999; i++)
             {
                 string ii = i.ToString();
@@ -1084,7 +1085,7 @@ namespace ProjectEulerCSharp
         {
             //https://codereview.stackexchange.com/questions/27025/generating-pandigital-numbers
             List<long> pandigital_numbers = GeneratePandigital().ToList<long>();
-            BigInteger sum = 0;
+            System.Numerics.BigInteger sum = 0;
             //= BigInteger.Parse
             //Console.WriteLine("Amount of pandigital numbers = " + pandigital_numbers.Count);
             foreach(var pn in pandigital_numbers)
@@ -1133,7 +1134,7 @@ namespace ProjectEulerCSharp
 
                 if (division_count == 7)
                 {
-                    sum += BigInteger.Parse(pnn);
+                    sum += System.Numerics.BigInteger.Parse(pnn);
                 }
             }
 
@@ -1206,14 +1207,14 @@ namespace ProjectEulerCSharp
         // 45 - Triangular, pentagonal, and hexagonal - COMPLETE
         public static void Exercise45()
         {
-            List<BigInteger> triangle_numbers = new List<BigInteger>();
-            List<BigInteger> pentagonal_numbers = new List<BigInteger>();
-            List<BigInteger> hexagonal_numbers = new List<BigInteger>();
-            for(BigInteger n = 1; n <= 100000; n++)
+            List<System.Numerics.BigInteger> triangle_numbers = new List<System.Numerics.BigInteger>();
+            List<System.Numerics.BigInteger> pentagonal_numbers = new List<System.Numerics.BigInteger>();
+            List<System.Numerics.BigInteger> hexagonal_numbers = new List<System.Numerics.BigInteger>();
+            for(System.Numerics.BigInteger n = 1; n <= 100000; n++)
             {
-                BigInteger tn = (n * (n + 1)) / 2;
-                BigInteger pn = (n * (3 * n - 1)) / 2;
-                BigInteger hn = n * (2 * n - 1);
+                System.Numerics.BigInteger tn = (n * (n + 1)) / 2;
+                System.Numerics.BigInteger pn = (n * (3 * n - 1)) / 2;
+                System.Numerics.BigInteger hn = n * (2 * n - 1);
                 triangle_numbers.Add(tn);
                 pentagonal_numbers.Add(pn);
                 hexagonal_numbers.Add(hn);
@@ -1221,7 +1222,7 @@ namespace ProjectEulerCSharp
 
             for(int i = 0; i < triangle_numbers.Count; i++)
             {
-                BigInteger tn = triangle_numbers[i];
+                System.Numerics.BigInteger tn = triangle_numbers[i];
                 if(pentagonal_numbers.Contains(tn) && hexagonal_numbers.Contains(tn))
                 {
                     Console.WriteLine("i = " + (i + 1) + ", number = " + tn); // Number 55385 --> 1533776805
@@ -1244,11 +1245,11 @@ namespace ProjectEulerCSharp
         // 48 - Self powers - COMPLETE
         public static void Exercise48()
         {
-            BigInteger sum = 0;
+            System.Numerics.BigInteger sum = 0;
             for(int i = 1; i <= 1000; i++)
             {
-                BigInteger s = i;
-                BigInteger multiplier = i;
+                System.Numerics.BigInteger s = i;
+                System.Numerics.BigInteger multiplier = i;
                 for(int j = 1; j < i; j++)
                 {
                     s *= multiplier;
@@ -1329,9 +1330,9 @@ namespace ProjectEulerCSharp
                 {
                     int nn = n;
                     int rr = r;
-                    BigInteger n_factorial = 1;
-                    BigInteger r_factorial = 1;
-                    BigInteger n_minus_r_factorial = 1;
+                    System.Numerics.BigInteger n_factorial = 1;
+                    System.Numerics.BigInteger r_factorial = 1;
+                    System.Numerics.BigInteger n_minus_r_factorial = 1;
                     int n_minus_r = n - r;
                     if(n_minus_r == 0) { n_minus_r = 1; }
 
@@ -1350,7 +1351,7 @@ namespace ProjectEulerCSharp
                         n_minus_r_factorial *= nmr;
                     }
 
-                    BigInteger combinations = n_factorial / (r_factorial * n_minus_r_factorial);
+                    System.Numerics.BigInteger combinations = n_factorial / (r_factorial * n_minus_r_factorial);
                     if(combinations > 1000000)
                     {
                         distinct_values += 1;
@@ -1376,14 +1377,14 @@ namespace ProjectEulerCSharp
         // 56 - Powerful digit sum - COMPLETE
         public static void Exercise56()
         {
-            BigInteger maximum_digital_sum = 0;
-            for (BigInteger a = 1; a < 100; a++)
+            System.Numerics.BigInteger maximum_digital_sum = 0;
+            for (System.Numerics.BigInteger a = 1; a < 100; a++)
             {
-                for (BigInteger b = 1; b < 100; b++)
+                for (System.Numerics.BigInteger b = 1; b < 100; b++)
                 {
-                    BigInteger digit_sum = 0;
-                    BigInteger a_power_b = a;
-                    for (BigInteger c = 1; c < b; c++)
+                    System.Numerics.BigInteger digit_sum = 0;
+                    System.Numerics.BigInteger a_power_b = a;
+                    for (System.Numerics.BigInteger c = 1; c < b; c++)
                     {
                         a_power_b *= a;
                     }
@@ -1648,7 +1649,18 @@ namespace ProjectEulerCSharp
         // 97 -	Large non-Mersenne prime
         public static void Exercise97()
         {
+            // 0 1 2 3 4 5 6 7 8 9 10
+            System.Numerics.BigInteger non_mersenne_prime = 1;
+            for(int i = 1; i <= 7830457; i++)
+            {
+                Console.WriteLine("i = " + i);
+                non_mersenne_prime *= 2;
+            }
 
+            non_mersenne_prime = 28433 * non_mersenne_prime + 1;
+            string nmp = non_mersenne_prime.ToString();
+            Console.WriteLine("Last 10 digits of massive non-Mersenne prime = " + nmp.Substring(nmp.Length - 10, 10));
+            // 8739992577
         }
 
         // 98 - Anagramic squares
